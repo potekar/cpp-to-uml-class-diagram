@@ -8,7 +8,7 @@ import os
 import argparse
 from antlr_visitor import parse_cpp_file_with_antlr
 from antlr_plantuml_generator import AntlrPlantUMLGenerator
-from simple_semantic_analyzer import SimpleSemanticAnalyzer
+from semantic_analyzer import SimpleSemanticAnalyzer
 
 
 def convert_cpp_to_uml(input_file: str, output_file: str = None, generate_diagram: bool = False, skip_semantic: bool = False) -> bool:
