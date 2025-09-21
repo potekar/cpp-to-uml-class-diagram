@@ -1,0 +1,24 @@
+@startuml
+!theme plain
+
+class Vehicle {
+  - brand : string
+  - year : int
+  - isRunning : bool
+  - Vehicle(string brand, int year)
+}
+
+class Car {
+  - doors : int
+  - fuelLevel : int
+  - Car(string brand, int year, int doors)
+}
+
+class Motorcycle {
+  - hasWindshield : bool
+  - Motorcycle(string brand, int year)
+}
+
+Vehicle <|-- Car
+Vehicle <|-- Motorcycle
+@enduml

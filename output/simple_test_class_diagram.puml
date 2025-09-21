@@ -1,0 +1,27 @@
+@startuml
+!theme plain
+
+class Person {
+  - name : std::string
+  - age : int
+  - Person(std::string& n, int a)
+  - ~Person()
+  - getName() : std::string getName ( ) {readOnly}
+  - getAge() : int getAge ( ) {readOnly}
+  - setName(std::string& n) : void setName ( conststd::string&n )
+  - setAge(int a) : void setAge ( inta )
+  - display() : void display ( ) {readOnly}
+}
+
+class Student {
+  - studentId : std::string
+  - gpa : double
+  - Student(std::string& n, int a, std::string& id, double g)
+  - getStudentId() : std::string getStudentId ( ) {readOnly}
+  - getGpa() : double getGpa ( ) {readOnly}
+  - setGpa(double g) : void setGpa ( doubleg )
+  - display() : void display ( ) {readOnly}
+}
+
+Person <|-- Student
+@enduml
