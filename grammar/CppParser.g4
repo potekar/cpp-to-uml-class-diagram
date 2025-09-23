@@ -4,17 +4,17 @@ options {
     tokenVocab = CppLexer;
 }
 
-// Main entry point
+// main
 compilationUnit: translationUnit? EOF;
 
 translationUnit: 
     (namespaceDefinition | classDefinition | usingDeclaration | preprocessorDirective | functionDefinition)*;
 
-// Namespace definitions
+// namespace
 namespaceDefinition:
     NAMESPACE IDENTIFIER? LBRACE translationUnit RBRACE;
 
-// Class definitions
+// klasa
 classDefinition:
     classKey IDENTIFIER (COLON accessSpecifier? classInheritanceList)? LBRACE classBody RBRACE SEMICOLON?;
 
@@ -32,7 +32,7 @@ classBody:
 accessSpecifier:
     PUBLIC | PRIVATE | PROTECTED;
 
-// Member declarations
+// memberi
 memberDeclaration:
     (staticDeclaration | virtualDeclaration | friendDeclaration | templateDeclaration | 
      memberFunction | memberVariable | constructor | destructor | inlineMethod | 
@@ -56,7 +56,7 @@ templateParameterList:
 templateParameter:
     (CLASS | TYPENAME) IDENTIFIER;
 
-// Member functions
+// Member funkcije
 memberFunction:
     (CONST | VOLATILE | INLINE | EXPLICIT | EXTERN | MUTABLE | REGISTER | AUTO)* 
     returnType functionName LPAREN parameterList? RPAREN (CONST | VOLATILE | OVERRIDE)*;
@@ -93,11 +93,11 @@ parameter:
 defaultValue:
     INTEGER_LITERAL | FLOATING_LITERAL | CHARACTER_LITERAL | STRING_LITERAL | IDENTIFIER | QUALIFIED_NAME;
 
-// Member variables
+// Member varijable
 memberVariable:
     (CONST | VOLATILE | STATIC | MUTABLE | REGISTER | AUTO)* typeSpecifier IDENTIFIER (ASSIGN defaultValue)?;
 
-// Constructors and destructors
+// konstruktori
 constructor:
     IDENTIFIER LPAREN parameterList? RPAREN (COLON memberInitializerList)? (LBRACE constructorBody RBRACE)?;
 
@@ -116,7 +116,7 @@ argumentList:
 argument:
     INTEGER_LITERAL | FLOATING_LITERAL | CHARACTER_LITERAL | STRING_LITERAL | IDENTIFIER | QUALIFIED_NAME;
 
-// Inline methods with bodies
+// metode
 inlineMethod:
     (VIRTUAL | CONST | VOLATILE | INLINE | STATIC)* returnType functionName LPAREN parameterList? RPAREN 
     (CONST | VOLATILE | OVERRIDE)* LBRACE methodBody RBRACE;
@@ -125,7 +125,7 @@ methodWithBody:
     (VIRTUAL | CONST | VOLATILE | INLINE | STATIC)* returnType functionName LPAREN parameterList? RPAREN 
     (CONST | VOLATILE | OVERRIDE)* LBRACE methodBody RBRACE;
 
-// Method bodies (allow any content)
+
 methodBody:
     (OTHER | IDENTIFIER | QUALIFIED_NAME | STRING_LITERAL | INTEGER_LITERAL | 
      LBRACE | RBRACE | LPAREN | RPAREN | SEMICOLON | COMMA | DOT | ARROW | 
@@ -147,7 +147,7 @@ destructorBody:
      AND | OR | NOT | BITAND | BITOR | XOR | LSHIFT | RSHIFT | INC | DEC | 
      TILDE | QUESTION | COLON | LBRACKET | RBRACKET)*;
 
-// Function definitions (for main, etc.)
+
 functionDefinition:
     returnType IDENTIFIER LPAREN parameterList? RPAREN LBRACE functionBody RBRACE;
 
@@ -158,10 +158,10 @@ functionBody:
      AND | OR | NOT | BITAND | BITOR | XOR | LSHIFT | RSHIFT | INC | DEC | 
      TILDE | QUESTION | COLON | LBRACKET | RBRACKET)*;
 
-// Using declarations
+// using deklaracija
 usingDeclaration:
     USING (IDENTIFIER | NAMESPACE IDENTIFIER) SEMICOLON;
 
-// Preprocessor directives
+// direktive
 preprocessorDirective:
     PREPROCESSOR;

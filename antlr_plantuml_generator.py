@@ -7,7 +7,6 @@ from antlr_visitor import ClassInfo, MemberInfo
 
 
 class AntlrPlantUMLGenerator:
-    """Generiše PlantUML kod iz ANTLR4 klasa."""
     
     def __init__(self):
         self.classes = []
@@ -145,7 +144,7 @@ class AntlrPlantUMLGenerator:
                 print(f"Dijagram uspešno generisan kao {output_format}")
                 return True
             else:
-                print(f"Greška pri generisanju dijagrama: {result.stderr}")
+                print(f"Greška pri generisanju dijagrama")
                 return False
                 
         except FileNotFoundError:

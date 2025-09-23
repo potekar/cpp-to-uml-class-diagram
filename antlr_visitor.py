@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """
 ANTLR4 Visitor za C++ klase.
 """
@@ -172,7 +171,7 @@ class CppASTVisitor(CppParserListener):
         self.current_class.add_method(method)
     
     def enterMethodWithBody(self, ctx):
-        """Ulazak u metodu sa telom."""
+        """Ulazak u metodu sa tijelom."""
         if not self.current_class:
             return
             

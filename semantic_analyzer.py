@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """
-Jednostavna semantička analiza za C++ kod.
+Semantička analiza  C++ koda.
 """
 
-from typing import Dict, List, Set, Optional
-from antlr_visitor import ClassInfo, MemberInfo
+from typing import Dict, List, Set
+from antlr_visitor import ClassInfo
 
 
 class SemanticError:
@@ -18,7 +18,7 @@ class SemanticError:
         return f"{self.error_type}: {self.message}"
 
 
-class SimpleSemanticAnalyzer:
+class SemanticAnalyzer:
     """Jednostavna semantička analiza."""
     
     def __init__(self):

@@ -1,6 +1,6 @@
 lexer grammar CppLexer;
 
-// Keywords
+// kljucne rijeci
 CLASS: 'class';
 STRUCT: 'struct';
 PUBLIC: 'public';
@@ -25,7 +25,7 @@ MUTABLE: 'mutable';
 REGISTER: 'register';
 AUTO: 'auto';
 
-// Access modifiers
+// operatori pristupa
 COLON: ':';
 SEMICOLON: ';';
 COMMA: ',';
@@ -41,7 +41,7 @@ RPAREN: ')';
 LBRACKET: '[';
 RBRACKET: ']';
 
-// Operators
+// operatori
 ASSIGN: '=';
 PLUS: '+';
 MINUS: '-';
@@ -63,33 +63,33 @@ XOR: '^';
 LSHIFT: '<<';
 RSHIFT: '>>';
 
-// Increment/Decrement
+// inkrementacija/dekrementacija
 INC: '++';
 DEC: '--';
 
-// Special characters
+// specijalni karakteri
 TILDE: '~';
 QUESTION: '?';
 
-// Literals
+// Literali
 INTEGER_LITERAL: [0-9]+;
 FLOATING_LITERAL: [0-9]+ '.' [0-9]* | '.' [0-9]+;
 CHARACTER_LITERAL: '\'' (~['\\\r\n] | '\\' .) '\'';
 STRING_LITERAL: '"' (~["\\\r\n] | '\\' .)* '"';
 
-// Identifiers
+// Identifikatori
 IDENTIFIER: [a-zA-Z_][a-zA-Z0-9_]*;
 
-// Qualified names (e.g., std::string)
+// kvalifikatori
 QUALIFIED_NAME: IDENTIFIER (SCOPE IDENTIFIER)+;
 
-// Whitespace and comments
+// bjeline i komentari
 WS: [ \t\r\n]+ -> skip;
 LINE_COMMENT: '//' ~[\r\n]* -> skip;
 BLOCK_COMMENT: '/*' .*? '*/' -> skip;
 
-// Preprocessor directives
+// direktive
 PREPROCESSOR: '#' ~[\r\n]* -> skip;
 
-// Everything else (for method bodies, etc.)
+// ostalo
 OTHER: .;

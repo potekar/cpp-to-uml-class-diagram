@@ -1,0 +1,35 @@
+@startuml
+!theme plain
+
+class Person {
+  - name : string
+  - age : int
+  - Person(string& n, int a)
+  - ~Person()
+  - getName() : string getName ( ) { returnname; } {readOnly}
+  - getAge() : int getAge ( ) { returnage; } {readOnly}
+  - setName(string& n) : void setName ( conststring&n ) { name=n;}voidsetAge(inta){age=a; }
+  - display() : void display ( ) { cout<<"Name: "<<name<<", Age: "<<age<<endl; } {abstract} {readOnly}
+}
+
+class Student {
+  - studentId : string
+  - gpa : double
+  - Student(string& n, int a, string& id, double g)
+  - getStudentId() : string getStudentId ( ) { returnstudentId; } {readOnly}
+  - getGpa() : double getGpa ( ) { returngpa;}voidsetGpa(doubleg){gpa=g; } {readOnly}
+  - display() : void display ( ) { Person::display();cout<<"Student ID: "<<studentId<<", GPA: "<<gpa<<endl; } {readOnly}
+}
+
+class Teacher {
+  - department : string
+  - yearsOfExperience : int
+  - Teacher(string& n, int a, string& dept, int years)
+  - getDepartment() : string getDepartment ( ) { returndepartment; } {readOnly}
+  - getYearsOfExperience() : int getYearsOfExperience ( ) { returnyearsOfExperience; } {readOnly}
+  - display() : void display ( ) { Person::display();cout<<"Department: "<<department<<", Experience: "<<yearsOfExperience<<" years"<<endl; } {readOnly}
+}
+
+Person <|-- Student
+Person <|-- Teacher
+@enduml
