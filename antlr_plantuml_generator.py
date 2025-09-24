@@ -3,10 +3,11 @@
 PlantUML generator za ANTLR4 klase.
 """
 
-from antlr_visitor import ClassInfo, MemberInfo
+from antlr_visitor import ClassInfo
 
-
+global filenameClass
 class AntlrPlantUMLGenerator:
+    
     
     def __init__(self):
         self.classes = []
@@ -125,16 +126,12 @@ class AntlrPlantUMLGenerator:
         import os
         
         # Sačuvaj PlantUML kod u privremeni fajl
-        temp_file = "temp_class_diagram.puml"
+        
+        temp_file = "temp_file"
         self.save_to_file(temp_file)
+        plantuml_jar="plantuml.jar"
         
         try:
-            # Proveri da li je PlantUML jar dostupan
-            plantuml_jar = "plantuml.jar"
-            if not os.path.exists(plantuml_jar):
-                print(f"PlantUML jar nije pronađen na {plantuml_jar}")
-                print("Molimo preuzmite plantuml.jar sa https://plantuml.com/download")
-                return False
             
             # Generiši dijagram
             cmd = ["java", "-jar", plantuml_jar, f"-t{output_format}", "-o", "uml_diagrams", temp_file]

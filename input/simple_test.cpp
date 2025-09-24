@@ -1,4 +1,5 @@
-// Jednostavan test C++ fajl
+#include<String>
+using namespace std;
 class Person {
 private:
     std::string name;
