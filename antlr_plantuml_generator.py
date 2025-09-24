@@ -17,24 +17,47 @@ class AntlrPlantUMLGenerator:
         self.classes.append(class_info)
     
     def generate_plantuml_code(self) -> str:
-        """Generiše kompletan PlantUML kod za sve klase."""
         lines = ["@startuml"]
         lines.append("!theme plain")
         lines.append("")
-        
-        # Generiši definicije klasa
+
         for class_info in self.classes:
             lines.extend(self._generate_class_definition(class_info))
             lines.append("")
-        
-        # Generiši relacije nasleđivanja
+
+        # Nasleđivanje
         for class_info in self.classes:
             for base_class in class_info.base_classes:
                 lines.append(f"{base_class} <|-- {class_info.name}")
-        
+
+        lines.extend(self._generate_associations())
+
         lines.append("@enduml")
         return "\n".join(lines)
-    
+
+    def _generate_associations(self) -> list:
+        """Dodaje linije za agregaciju (o--) i kompoziciju (*--)."""
+        lines = []
+        class_names = {c.name for c in self.classes}
+
+        for class_info in self.classes:
+            for member in class_info.members:
+                if not member.member_type:
+                    continue
+
+                raw_type = member.member_type.strip()
+            
+                clean_type = raw_type.replace("const ", "").strip()
+                base_type = clean_type.rstrip("*&")
+
+                if base_type in class_names:
+                    if "*" in clean_type or "&" in clean_type:
+                    
+                        lines.append(f"{class_info.name} o-- {base_type}")
+                    else:
+                        
+                        lines.append(f"{class_info.name} *-- {base_type}")
+        return lines
     def _generate_class_definition(self, class_info: ClassInfo) -> list:
         """Generiše PlantUML kod za jednu klasu."""
         lines = []

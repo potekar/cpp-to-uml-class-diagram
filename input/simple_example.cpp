@@ -1,84 +1,72 @@
-// Simple C++ example with basic class structure
 #include <iostream>
 #include <string>
-using namespace std;
-class Person {
-private:
-    string name;
-    int age;
-    
+#include <memory>
+#include <vector>
+
+// ---- Klase za primjer ----
+
+// Kompozicija: Motor je sastavni dio Automobila.
+// Kad se Automobile uništi, uništi se i Motor.
+class Motor {
 public:
-    Person(const string& n, int a) : name(n), age(a) {}
-    
-    string getName() const {
-        return name;
-    }
-    
-    int getAge() const {
-        return age;
-    }
-    
-    void setName(const string& n) {
-        name = n;
-    }
-    
-    void setAge(int a) {
-        age = a;
-    }
-    
-    virtual void display() const {
-        cout << "Name: " << name << ", Age: " << age << endl;
-    }
-    
-    virtual ~Person() = default;
+    Motor(int snaga) : snaga_(snaga) {}
+    void pokreni() const { std::cout << "Motor snage " << snaga_ << " kW je pokrenut.\n"; }
+private:
+    int snaga_;
 };
 
-class Student : public Person {
-private:
-    string studentId;
-    double gpa;
-    
+class Automobil {
 public:
-    Student(const string& n, int a, const string& id, double g) 
-        : Person(n, a), studentId(id), gpa(g) {}
-    
-    string getStudentId() const {
-        return studentId;
+    Automobil(const std::string& model, int snagaMotora)
+        : model_(model), motor_(snagaMotora) {}   // Motor je član po vrednosti
+
+    void start() {
+        std::cout << "Automobil " << model_ << " startuje.\n";
+        motor_.pokreni();
     }
-    
-    double getGpa() const {
-        return gpa;
-    }
-    
-    void setGpa(double g) {
-        gpa = g;
-    }
-    
-    void display() const override {
-        Person::display();
-        cout << "Student ID: " << studentId << ", GPA: " << gpa << endl;
-    }
+
+private:
+    std::string model_;
+    Motor motor_;   // kompozicija
 };
 
-class Teacher : public Person {
-private:
-    string department;
-    int yearsOfExperience;
-    
+// Agregacija: Vozač može da vozi različite automobile,
+// a automobil može da postoji i bez konkretnog vozača.
+class Vozac {
 public:
-    Teacher(const string& n, int a, const string& dept, int years) 
-        : Person(n, a), department(dept), yearsOfExperience(years) {}
-    
-    string getDepartment() const {
-        return department;
+    Vozac(const std::string& ime) : ime_(ime) {}
+
+    void dodajAuto(std::shared_ptr<Automobil> autoPtr) {
+        automobili_.push_back(autoPtr);   // čuva se shared_ptr, ali ne “posjeduje” u smislu ekskluzivnosti
     }
-    
-    int getYearsOfExperience() const {
-        return yearsOfExperience;
+
+    void vozi() {
+        std::cout << ime_ << " vozi automobile:\n";
+        for (auto& a : automobili_) {
+            a->start();
+        }
     }
-    
-    void display() const override {
-        Person::display();
-        cout << "Department: " << department << ", Experience: " << yearsOfExperience << " years" << endl;
-    }
+
+private:
+    std::string ime_;
+    std::vector<std::shared_ptr<Automobil>> automobili_; // agregacija
 };
+
+// ---- Glavni program ----
+int main() {
+    // Kreiranje automobila (kompozicija unutar njega drži Motor)
+    auto auto1 = std::make_shared<Automobil>("BMW", 180);
+    auto auto2 = std::make_shared<Automobil>("Audi", 150);
+
+    Vozac v("Milan");
+
+    // Agregacija: vozač koristi automobile, ali oni postoje i bez njega
+    v.dodajAuto(auto1);
+    v.dodajAuto(auto2);
+
+    v.vozi();
+
+    // Kada program završi, automobili se automatski brišu
+    // Motor unutar svakog auta se takođe briše (kompozicija).
+    return 0;
+}

@@ -1,24 +1,33 @@
 @startuml
 !theme plain
 
-class Vehicle {
-  - brand : string
-  - year : int
-  - isRunning : bool
-  - Vehicle(string brand, int year)
+class Osoba {
+  - ime : string
+  - godine : int
+  - Osoba(string& i, int g)
 }
 
-class Car {
-  - doors : int
-  - fuelLevel : int
-  - Car(string brand, int year, int doors)
+class Student {
+  - indeks : string
+  - predmeti : vector<string>
+  - Student(string& i, int g, string& ind)
+  - dodajPredmet(string& predmet) : void dodajPredmet ( conststring&predmet ) { predmeti.push_back(predmet);}voidpredstaviSeStudent(){cout<<"Student "<<ime<<" ("<<indeks<<"), godina: "<<godine<<endl;cout<<"Predmeti: ";for(inti=0;i<predmeti.size();i++)cout<<predmeti[i]<<" ";cout<<endl; }
 }
 
-class Motorcycle {
-  - hasWindshield : bool
-  - Motorcycle(string brand, int year)
+class Profesor {
+  - katedra : string
+  - studenti : vector<Student*>
+  - Profesor(string& i, int g, string& k)
 }
 
-Vehicle <|-- Car
-Vehicle <|-- Motorcycle
+class Kurs {
+  - naziv : string
+  - predavac : Profesor*
+  - polaznici : vector<Student*>
+  - Kurs(string& n, Profesor* p)
+}
+
+Osoba <|-- Student
+Osoba <|-- Profesor
+Kurs o-- Profesor
 @enduml
